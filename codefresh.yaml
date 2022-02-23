@@ -1,0 +1,26 @@
+# More examples of Codefresh YAML can be found at
+# https://codefresh.io/docs/docs/yaml-examples/examples/
+
+version: "1.0"
+# Stages can help you organize your steps in stages
+stages:
+  - "deploy"
+
+steps:
+  deploy:
+    type: helm
+    stage: deploy
+    arguments:
+      chart_repo_url: https://h.cfcr.io/codefreshdemo/public
+      chart_name: example-voting-app
+      chart_version: "1.0.1"
+      release_name: example-voting-app
+      kube_context: robsandbox
+      namespace: example-demo
+      helm_version: '3.6.2'
+      # cmd_ps: --wait --timeout 5 --debug
+      custom_values:
+        - secret_data_password=null
+        - value_result_image_tag=SA-390-gambit-or-mojo-7002c2
+        - value_vote_image_tag=SA-390-gambit-or-mojo-7002c2
+        - value_worker_image_tag=updating-cb26ce0
